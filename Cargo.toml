@@ -1,0 +1,17 @@
+[package]
+name = "png_encode_mini"
+version = "0.1.0"
+authors = ["Campbell Barton <ideasman42@gmail.com>"]
+
+description = "Mini stand-alone PNG crate which writes out uncompressed RGBA image files."
+
+documentation = "https://docs.rs/png_encode_mini"
+homepage = "https://github.com/ideasman42/png-encode-mini-rs"
+repository = "https://github.com/ideasman42/png-encode-mini-rs"
+
+readme = "readme.rst"
+
+license = "Apache-2.0"
+
+[dependencies]
+
