@@ -15,3 +15,12 @@ Tests
 Currently the tests use ImageMagick ``convert`` and ``compare`` commands
 to validate the output images can be read.
 
+
+Further Work
+------------
+
+While this crate is intentionally kept small, there are some possible additions.
+
+- Writing grey-scale images.
+- Writing RGB images (without an alpha channel).
+
