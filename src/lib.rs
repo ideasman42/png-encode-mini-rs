@@ -133,12 +133,12 @@ mod fake_zlib {
         let mut raw_data = Vec::with_capacity(final_len);
         // header
         raw_data.extend(&[120, 1]);
-        let mut pos_curr = 0_usize;
+        let mut pos = 0;
         let mut crc = adler32::Adler32::new();
-        loop {
-            let pos_next = ::std::cmp::min(data.len(), pos_curr + CHUNK_SIZE);
-            let chunk_len = (pos_next - pos_curr) as u32;
-            let is_last = pos_next == data.len();
+        for chunk in data.chunks(CHUNK_SIZE) {
+            let chunk_len = chunk.len();
+            pos += chunk_len;
+            let is_last = pos == data.len();
             raw_data.extend(&[
                 // type
                 if is_last { 1 } else { 0 },
@@ -150,14 +150,8 @@ mod fake_zlib {
                 (0xff - ((chunk_len >> 8) & 0xff)) as u8,
             ]);
 
-            raw_data.extend(&data[pos_curr..pos_next]);
-
-            crc.update(&data[pos_curr..pos_next]);
-
-            if is_last {
-                break;
-            }
-            pos_curr = pos_next;
+            raw_data.extend(chunk);
+            crc.update(chunk);
         }
 
         raw_data.extend(&u32_to_u8_be(crc.finalize()));
