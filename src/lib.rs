@@ -170,7 +170,7 @@ mod fake_zlib {
 ///
 /// Write RGBA pixels to uncompressed PNG.
 ///
-pub fn write<W: ::std::io::Write>(
+pub fn write_rgba_from_u8<W: ::std::io::Write>(
     file: &mut W,
     image: &[u8],
     w: u32,
@@ -230,3 +230,19 @@ pub fn write<W: ::std::io::Write>(
     Ok(())
 }
 
+pub fn write_rgba_from_u32<W: ::std::io::Write>(
+    file: &mut W,
+    image: &[u32],
+    w: u32,
+    h: u32,
+) -> Result<(), ::std::io::Error> {
+
+    assert!(w as usize * h as usize == image.len());
+
+    use std::slice;
+    let image_slice =
+        unsafe {
+            slice::from_raw_parts(image.as_ptr() as *const u8, image.len() * 4)
+        };
+    return write_rgba_from_u8(file, image_slice, w, h);
+}

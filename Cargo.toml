@@ -1,6 +1,6 @@
 [package]
 name = "png_encode_mini"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Campbell Barton <ideasman42@gmail.com>"]
 
 description = "Mini stand-alone PNG crate which writes out uncompressed RGBA image files."

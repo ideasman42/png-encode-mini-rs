@@ -42,7 +42,7 @@ fn image_at_size(
 
     {
         let mut f = std::fs::File::create(file).unwrap();
-        match png_encode_mini::write(
+        match png_encode_mini::write_rgba_from_u8(
             &mut f, &image[..],
             image_x as u32,
             image_y as u32,
