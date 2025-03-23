@@ -122,7 +122,7 @@ mod fake_zlib {
             (5 * {
                 let n = data.len() / CHUNK_SIZE;
                 // include an extra chunk when we don't fit exactly into CHUNK_SIZE
-                (n + {if data.len() == n * CHUNK_SIZE && data.len() != 0 { 0 } else { 1 }})
+                n + {if data.len() == n * CHUNK_SIZE && data.len() != 0 { 0 } else { 1 }}
             }) +
             // data
             data.len() +
@@ -208,7 +208,7 @@ pub fn write_rgba_from_u8<W: ::std::io::Write>(
         let mut span: u32 = (h - 1) * width_byte_4;
         loop {
             raw_data.push(0);
-            raw_data.extend((&image[(span as usize)..(span + width_byte_4) as usize]));
+            raw_data.extend(&image[(span as usize)..(span + width_byte_4) as usize]);
             if span == 0 {
                 break;
             }
